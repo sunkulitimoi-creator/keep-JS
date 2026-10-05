@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Apply saved theme before CSS so the page does not flash light mode -->
+    <script>
+        (function () {
+            try {
+                if (localStorage.getItem("keep-theme") === "dark") {
+                    document.documentElement.setAttribute("data-theme", "dark");
+                }
+            } catch (e) {}
+        })();
+    </script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <section>
+            <div class="left">
+                <span id="menu-btn" class="material-symbols-outlined">
+                    menu
+                </span>
+                <img src="https://www.gstatic.com/images/branding/productlogos/keep_2026/v2/web-48dp/logo_keep_2026_color_1x_web_48dp.png" alt="Logo">
+                <p>Keep</p>
+            </div>
+            
+            <div class="right">
+                <div class="search-area">
+                    <span class="material-symbols-outlined">
+                        search
+                    </span>
+                    <input type="search" placeholder="Search">
+                </div>
+                <div class="right-icons">
+                    <span class="material-symbols-outlined icon-refresh">
+                        refresh
+                    </span>
+                    <span class="material-symbols-outlined" id="view-toggle" title="Toggle view">
+                        view_agenda
+                    </span>
+                    <span class="material-symbols-outlined icon-settings">
+                        settings
+                    </span>
+                    <span class="material-symbols-outlined" id="theme-toggle" title="Toggle theme">
+                        dark_mode
+                    </span>
+                    <span class="material-symbols-outlined icon-apps">
+                        apps
+                    </span>
+                    <span class="material-symbols-outlined">
+                        person
+                    </span>
+                </div>
+            </div>
+        </section>
+        
+    </header>
+    
+    <section id="main-container">
+        <aside>
+            <span class="side-bar-item active" data-filter="all">
+                <span class="material-symbols-outlined">
+                    lightbulb_2
+                </span>
+                Notes
+            </span>
+
+            <span class="side-bar-item">
+                <span class="material-symbols-outlined">
+                    notifications
+                </span>
+                Reminders
+            </span>
+
+            <span class="side-bar-item" data-filter="Inspiration">
+                <span class="material-symbols-outlined">
+                    label
+                </span>
+                Inspiration
+            </span>
+
+            <span class="side-bar-item" data-filter="Other">
+                <span class="material-symbols-outlined">
+                    label
+                </span>
+                Other
+            </span>
+
+            <span class="side-bar-item" data-filter="Personal">
+                <span class="material-symbols-outlined">
+                    label
+                </span>
+                Personal
+            </span>
+
+            <span class="side-bar-item" data-filter="Work">
+                <span class="material-symbols-outlined">
+                    label
+                </span>
+                Work
+            </span>
+
+            <span class="side-bar-item">
+                <span class="material-symbols-outlined">
+                    edit
+                </span>
+                Edit Labels
+            </span>
+
+            <span class="side-bar-item">
+                <span class="material-symbols-outlined">
+                    archive
+                </span>
+                Archive
+            </span>
+
+            <span class="side-bar-item">
+                <span class="material-symbols-outlined">
+                    delete
+                </span>
+                Trash
+            </span>
+        </aside>
+        <main>
+            <div class="compose" id="compose">
+                <div class="title-section">
+                    <input type="text" id="title" placeholder="Title">
+                    <span class="material-symbols-outlined">keep</span>
+                </div>
+
+                <textarea id="note" placeholder="Take a note..." rows="1"></textarea>
+
+                <div class="note-formatting">
+                    <div class="format-icons">
+                        <span class="material-symbols-outlined">text_format</span>
+                        <span class="material-symbols-outlined">palette</span>
+                        <span class="material-symbols-outlined">add_alert</span>
+                        <span class="material-symbols-outlined">person_add</span>
+                        <span class="material-symbols-outlined">image</span>
+                        <span class="material-symbols-outlined">archive</span>
+                        <span class="material-symbols-outlined">more_vert</span>
+                        <span class="material-symbols-outlined">undo</span>
+                        <span class="material-symbols-outlined">redo</span>
+                    </div>
+                    <select id="compose-label" class="label-select" title="Label">
+                        <option value="">No label</option>
+                        <option value="Inspiration">Inspiration</option>
+                        <option value="Other">Other</option>
+                        <option value="Personal">Personal</option>
+                        <option value="Work">Work</option>
+                    </select>
+                    <button id="close-btn">Close</button>
+                </div>
+            </div>
+
+            <section id="notes"></section>
+
+            <div class="overlay" id="overlay"></div>
+
+            <div class="modal" id="modal">
+                <input type="text" id="modal-title" placeholder="Title">
+                <textarea id="modal-note" placeholder="Note"></textarea>
+                <div class="note-date modal-date" id="modal-date"></div>
+                <div class="modal-footer">
+                    <div class="color-picker" id="color-picker"></div>
+
+                    <div class="format-icons">
+                        <span class="material-symbols-outlined" id="modal-palette" title="Background options">palette</span>
+                        <span class="material-symbols-outlined" title="Remind me">add_alert</span>
+                        <span class="material-symbols-outlined" title="Collaborator">person_add</span>
+                        <span class="material-symbols-outlined" title="Add image">image</span>
+                        <span class="material-symbols-outlined" title="Archive">archive</span>
+                        <span class="material-symbols-outlined" id="modal-delete" title="Delete note">delete</span>
+                        <span class="material-symbols-outlined" id="modal-undo" title="Undo">undo</span>
+                        <span class="material-symbols-outlined" id="modal-redo" title="Redo">redo</span>
+                    </div>
+
+                    <select id="modal-label" class="label-select" title="Label">
+                        <option value="">No label</option>
+                        <option value="Inspiration">Inspiration</option>
+                        <option value="Other">Other</option>
+                        <option value="Personal">Personal</option>
+                        <option value="Work">Work</option>
+                    </select>
+                    <button id="modal-close">Close</button>
+                </div>
+            </div>
+    </main>
+
+       
+    </section>
+  
+
+    <script src="script.js" type="text/javascript"></script>
+</body>
+</html>
